@@ -2,8 +2,11 @@ package com.nischal.security.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -13,7 +16,7 @@ import java.util.stream.Collectors;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class User extends BaseEntity{
+public class User extends BaseEntity implements UserDetails {
 
     @Column(length = 150, name = "FIRSTNAME", nullable = false)
     private String firstName;
@@ -53,5 +56,35 @@ public class User extends BaseEntity{
                 .stream()
                 .map(roleAuthority -> roleAuthority.getAuthority().getName())
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return null;
+    }
+
+    @Override
+    public String getUsername() {
+        return emailAddress;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return false;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return false;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return false;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return getStatus();
     }
 }
