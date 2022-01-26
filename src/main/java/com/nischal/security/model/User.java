@@ -3,6 +3,7 @@ package com.nischal.security.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
@@ -60,7 +61,10 @@ public class User extends BaseEntity implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+       return role.getRoleAuthorities()
+               .stream()
+               .map((roleAuthority)->new SimpleGrantedAuthority(roleAuthority.getAuthority().getName()))
+               .collect(Collectors.toList());
     }
 
     @Override
