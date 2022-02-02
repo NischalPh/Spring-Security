@@ -7,6 +7,7 @@ import lombok.Setter;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import java.util.List;
 
@@ -20,7 +21,7 @@ public class Role extends BaseEntity{
     @Column(name = "NAME", length = 150, nullable = false)
     private String name;
 
-    @OneToMany(mappedBy = "role")
+    @OneToMany(mappedBy = "role",fetch = FetchType.EAGER)
     private List<RoleAuthority> roleAuthorities;
 
     public Role(Long id) {

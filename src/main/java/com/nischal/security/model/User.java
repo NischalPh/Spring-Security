@@ -51,14 +51,6 @@ public class User extends BaseEntity implements UserDetails {
     @JoinColumn(name = "ROLE_ID", referencedColumnName = "ID")
     private Role role;
 
-    public List<String> authorities() {
-        return role
-                .getRoleAuthorities()
-                .stream()
-                .map(roleAuthority -> roleAuthority.getAuthority().getName())
-                .collect(Collectors.toList());
-    }
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
        return role.getRoleAuthorities()
@@ -90,5 +82,13 @@ public class User extends BaseEntity implements UserDetails {
     @Override
     public boolean isEnabled() {
         return getStatus();
+    }
+
+    public List<String> authorities() {
+        return role
+                .getRoleAuthorities()
+                .stream()
+                .map(roleAuthority -> roleAuthority.getAuthority().getName())
+                .collect(Collectors.toList());
     }
 }

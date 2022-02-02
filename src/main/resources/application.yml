@@ -4,8 +4,8 @@ spring:
     serialization.FAIL_ON_EMPTY_BEANS: false
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    username: root
-    password: java
+    username: abc
+    password: abcd
     url: jdbc:mysql://localhost:3306/SPRING_SECURITY?useSSL=false&allowPublicKeyRetrieval=true&createDatabaseIfNotExist=true
   jpa:
     database: mysql
@@ -16,4 +16,7 @@ spring:
       ddl-auto: update
     properties:
       hibernate.format_sql: true
+jwt:
+  secretKey: mbA7W_&3Gg'a'{.Z!@4724:%=rF.YjuA
+  expiresInMinutes: 10
 
